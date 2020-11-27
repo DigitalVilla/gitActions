@@ -1,10 +1,10 @@
-name: 'FirstAction'
+name: 'D'
 description: 'Greet someone and record the time'
 inputs:
-  app-name:  # id of input
+  app:  # id of input
     description: 'Script to work with'
     required: true
-    default: 'js:test'
+    default: 'test'
 outputs:
   update: # id of output
     description: 'latest change'
