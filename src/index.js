@@ -6,6 +6,7 @@ async function main() {
   try {
     const scriptToRun = core.getInput('script')
 
+    console.log(process.env)
     const env = process.env.GITHUB_ACTION_REF === 'master' ? 'prod' : 'dev'
     console.log(env)
     process.env.NODE_ENV = env
@@ -14,12 +15,6 @@ async function main() {
     if (scriptToRun) {
       script = await execAsync(`yarn ${scriptToRun} --stage ${env}`)
     }
-
-    const echo = await execAsync(`git log -2 --name-status `)
-    console.log(echo.stdout)
-
-    const printEnv = await execAsync(`git log -1 --name-status `)
-    console.log(printEnv.stdout)
 
     core.setOutput('update', script.stdout)
     // Get the JSON webhook payload for the event that triggered the workflow
