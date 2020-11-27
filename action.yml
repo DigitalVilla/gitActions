@@ -1,13 +1,13 @@
 name: 'FirstAction'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  app-name:  # id of input
+    description: 'Script to work with'
     required: true
-    default: 'World'
+    default: 'js:test'
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  update: # id of output
+    description: 'latest change'
 runs:
   using: 'node12'
   main: 'dist/index.js'
