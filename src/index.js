@@ -7,7 +7,7 @@ async function main() {
     const scriptToRun = core.getInput('script')
 
     console.log(process.env)
-    const env = process.env.GITHUB_ACTION_REF === 'master' ? 'prod' : 'dev'
+    const env = process.env.GITHUB_BASE_REF === 'master' ? 'prod' : 'dev'
     console.log(env)
     process.env.NODE_ENV = env
 
