@@ -8,6 +8,8 @@ inputs:
 outputs:
   update: # id of output
     description: 'latest change'
+  env: # id of output
+    description: 'latest change'
 runs:
   using: 'node12'
   main: 'dist/index.js'

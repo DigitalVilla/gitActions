@@ -10,7 +10,10 @@ async function main() {
     console.log(env)
     process.env.NODE_ENV = env
 
-    const script = await execAsync(`yarn ${scriptToRun} lamb --stage ${env}`)
+    let script = ''
+    if (scriptToRun) {
+      script = await execAsync(`yarn ${scriptToRun} --stage ${env}`)
+    }
 
     const echo = await execAsync(`git log -2 --name-status `)
     console.log(echo.stdout)
