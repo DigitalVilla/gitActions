@@ -4,17 +4,21 @@ const github = require('@actions/github')
 
 async function main() {
   try {
-    const nameToGreet = core.getInput('script')
-    console.log(nameToGreet)
-    console.log(process.env)
+    const scriptToRun = core.getInput('script')
 
-    const echo = await execAsync(`ls && pwd && git log`)
+    const env = process.env.GITHUB_ACTION_REF === 'master' ? 'prod' : 'dev'
+    console.log(env)
+    process.env.NODE_ENV = env
+
+    const script = await execAsync(`yarn ${scriptToRun} lamb --stage ${env}`)
+
+    const echo = await execAsync(`git log -2 --name-status `)
     console.log(echo.stdout)
 
     const printEnv = await execAsync(`git log -1 --name-status `)
     console.log(printEnv.stdout)
 
-    core.setOutput('update', echo.stdout)
+    core.setOutput('update', script.stdout)
     // Get the JSON webhook payload for the event that triggered the workflow
     const context = JSON.stringify(github, undefined, 2)
     console.log(`The event context: ${context}`)
